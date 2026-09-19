@@ -9,8 +9,11 @@ module mux_beh (
   input       I0,
   input       I1,
   input       S,
-  output wire Y
+  output reg Y
 );
+// behavioral modeling uses procedural blocks always/initial that require a storage element to hold assigned values across simulation time steps till the next procedural update
+// dataflow modeling uses continuous assignments 'assign' which represent physical connections driven continuously by logic gates that must update whenever their inputs are changed
+// the simulator wouldn't know if the signal is meant to be a continuously driven hardware wire or a procedurally stored variable, leading to a compilation error due to conflicting assignment semantics
 
   always @(*) begin
     if (S)
